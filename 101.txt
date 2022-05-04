@@ -1,0 +1,43 @@
+class traceCover
+{
+
+rect coverRect;//找到的或者跟踪的矩形框
+yolo myYolo;//yolo类
+trace myTrace;//追踪类
+int cameraXPixs;//相机x向像素数量
+float cameraAngle；//相机x方向视场角
+
+	/*
+*输入Mat获取移动的距离，当距离为0或者负数表示停止
+*@inImg：输入img
+*@zDistance：外盖距离2D相机距离（经验值）
+*@bStart:表示开始第一次图像的输入
+*@moveDistance
+        0：外盖在相机正前方   （车从左方驶入，右方驶出）
+        <0: 外盖在相机左方向
+        >0: 外盖在相机右方向 
+*返回值：0：成功   -1：失败
+*/
+int inputMatGetDistance(Mat inImg, int zDistance,int& moveDistance,bool bStart);
+
+//zDistance外盖距离2D相机距离（经验值） //coverRect利用外盖中心计算，与相机分辨率及视场角有关
+computeDistance(coverRect,zDistance);
+}
+int inputMatGetDistance(Mat inImg, int zDistance,int& moveDistance,bool bStart)
+{
+if(bStart==true)
+	{
+  	
+  	yolo寻找唯一coverRect；if(找不到)return -1；
+	清空追踪器；	
+	追踪器初始化；
+	moveDistance=computeDistance(coverRect,zDistance);
+	return 0；
+	}
+else（bStart==flase）
+{
+	追踪器追踪更新coverRect；if(找不到)return -1；
+	moveDistance=computeDistance(coverRect,zDistance);
+	return 0；
+}
+}
